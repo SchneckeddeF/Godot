@@ -1,15 +1,17 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/Menus/MainMenu.gd" type="Script" id=1]
 
 [sub_resource type="Theme" id=1]
 
-[node name="Node2D" type="Node2D"]
+[node name="MainMenu" type="Node2D"]
 
 [node name="ColorRect" type="ColorRect" parent="."]
 margin_right = 960.0
 margin_bottom = 540.0
 color = Color( 0, 0, 0, 1 )
 
-[node name="Button" type="Button" parent="."]
+[node name="PlayButton" type="Button" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -25,6 +27,9 @@ custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_hover = Color( 0.819608, 0.054902, 0.054902, 1 )
 custom_colors/font_color_pressed = Color( 0.0862745, 0.380392, 0.831373, 1 )
 text = "Play"
+script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
+
+[connection signal="pressed" from="PlayButton" to="PlayButton" method="_on_PlayButton_pressed"]
