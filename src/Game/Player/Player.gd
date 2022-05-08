@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 
 export (int) var speed = 120
-
+var open_pressed = false
 var velocity = Vector2()
 
 
@@ -12,25 +12,11 @@ func _physics_process(delta):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 func _input(event):
+	input()
+
+
+func input():
 	velocity = Vector2()
 	if Input.is_action_pressed("right"):
 		velocity.x += 1
@@ -41,3 +27,6 @@ func _input(event):
 	if Input.is_action_pressed("up"):
 		velocity.y -= 1
 	velocity = velocity.normalized() * speed
+	
+
+

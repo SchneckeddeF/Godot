@@ -1,7 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://src/Game/Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/import/tileset.png" type="Texture" id=2]
+[ext_resource path="res://src/Game/Coin.gd" type="Script" id=3]
+[ext_resource path="res://src/import/coin.png" type="Texture" id=4]
 
 [sub_resource type="TileSet" id=1]
 0/name = "tileset.png 0"
@@ -54,7 +56,7 @@ points = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
 points = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
 
 [sub_resource type="TileSet" id=2]
-0/name = "tileset.png 0"
+0/name = "danger"
 0/texture = ExtResource( 2 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
@@ -75,7 +77,7 @@ points = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 0/z_index = 0
-1/name = "tileset.png 1"
+1/name = "danger"
 1/texture = ExtResource( 2 )
 1/tex_offset = Vector2( 0, 0 )
 1/modulate = Color( 1, 1, 1, 1 )
@@ -97,6 +99,9 @@ points = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
 } ]
 1/z_index = 0
 
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 30, 23.25 )
+
 [node name="Game" type="Node2D"]
 
 [node name="background" type="TileMap" parent="."]
@@ -109,9 +114,36 @@ tile_data = PoolIntArray( 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 
 tile_set = SubResource( 2 )
 cell_size = Vector2( 32, 32 )
 format = 1
-tile_data = PoolIntArray( 9, 1, 0, 65558, 0, 0, 131090, 0, 0, 196623, 1, 0, 262151, 0, 0, 327701, 1, 0, 393240, 0, 0, 458760, 1, 0, 458768, 0, 0, 589842, 0, 0, 589848, 1, 0, 655372, 0, 0 )
+tile_data = PoolIntArray( 9, 1, 0, 196623, 1, 0, 327701, 1, 0, 458760, 1, 0, 589848, 1, 0 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Control" type="Control" parent="."]
+margin_left = 806.0
+margin_top = 18.0
+margin_right = 846.0
+margin_bottom = 58.0
+
+[node name="TextEdit" type="TextEdit" parent="Control"]
+margin_right = 137.0
+margin_bottom = 81.0
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 376, 128 )
 scale = Vector2( 2, 2 )
 speed = 350
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 419, 388 )
+texture = ExtResource( 4 )
+script = ExtResource( 3 )
+
+[node name="TruheArea" type="Area2D" parent="Sprite"]
+position = Vector2( -590, -307 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/TruheArea"]
+position = Vector2( 590, 307 )
+shape = SubResource( 5 )
+
+[connection signal="body_entered" from="Sprite/TruheArea" to="Sprite" method="_on_TruheArea_body_entered"]
